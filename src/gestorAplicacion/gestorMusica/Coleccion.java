@@ -1,6 +1,7 @@
 package gestorAplicacion.gestorMusica;
-
 import java.util.ArrayList;
+import gestorAplicacion.gestorPersonas.Artista;
+
 
 public class Coleccion {
 	
@@ -49,7 +50,7 @@ public class Coleccion {
 	public String tiempoArtista(Artista artista) {
 		int tiempo=0;
 		for (int i=0;i<playlist.size();i++) {
-			ArrayList<Cancion> canciones=playlist.get(i).getListas();
+			ArrayList<Cancion> canciones=playlist.get(i).getLista();
 			for (int p=0;p<canciones.size();p++) {
 				Cancion musica=canciones.get(p);
 				if (musica.getArtistas()==artista) {
