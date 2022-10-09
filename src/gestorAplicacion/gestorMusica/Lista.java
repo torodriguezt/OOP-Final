@@ -59,7 +59,7 @@ public class Lista {
 		return "Se ha eliminado la canción "+cancion.getNombre()+" de la lista "+nombre+"con exito";
 	}
 	
-	public String ToString() {
+	public String toString() {
 		return "Reproduciendo la lista "+nombre;
 	}
 }
