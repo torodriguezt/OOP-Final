@@ -75,7 +75,7 @@ public class Artista extends Persona {
 		return "La cancion mas larga de " + nombre + "es: " +  masDuracion.getNombre() + "\n" +
 				"La canciones mas corta del "+ nombre + "es: " +  menosDuracion.getNombre() + "\n" +
 				"El promedio de las canciones de " + nombre + "es: " + promedio;
-		;
+		
 	}
 	
 	
