@@ -21,11 +21,11 @@ public class Lista {
 		this.nombre=nombre;
 	}
 	
-	public ArrayList<Cancion> getListas() {
+	public ArrayList<Cancion> getLista() {
 		return lista;
 	}
 
-	public void setListas(ArrayList<Cancion> lista) {
+	public void setLista(ArrayList<Cancion> lista) {
 		this.lista = lista;
 	}
 
@@ -51,11 +51,7 @@ public class Lista {
 	}
 	
 	public String eliminarCancion(Cancion cancion) {
-		for (int i=0;i<lista.size();i++) {
-			if (cancion==lista.get(i)) {
-				lista.remove(i);
-			}
-		}
+		lista.remove(cancion);
 		return "Se ha eliminado la canción "+cancion.getNombre()+" de la lista "+nombre+"con exito";
 	}
 	
