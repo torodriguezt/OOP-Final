@@ -45,7 +45,7 @@ public class Coleccion {
 		playlist.remove(A);
 		return "Se ha eliminado la lista "+lista.getNombre()+" de la biblioteca "+nombre+" con exito";
 	}
-	
+	// funcion compleja que retorna el tiempo total de lo escuchado por el artista de interes
 	public String tiempoArtista(Artista artista) {
 		int tiempo=0;
 		for (int i=0;i<playlist.size();i++) {
