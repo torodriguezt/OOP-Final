@@ -77,4 +77,8 @@ public class Cancion {
 		return "Se está reproduciendo la canción " + nombre;
 	}
 	
+	public void aumentarReproducciones(){
+		reproducciones++; 
+		}
+	
 }

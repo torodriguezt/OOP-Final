@@ -8,6 +8,7 @@ public class Lista {
 	private ArrayList<Cancion> lista;
 	private Usuario usuario;
 	private String nombre;
+	private int numeroReproducciones;
 	
 	public Lista(String nombre, Usuario usuario) {
 		lista=new ArrayList<>();
@@ -57,5 +58,20 @@ public class Lista {
 	
 	public String toString() {
 		return "Reproduciendo la lista "+nombre;
+	}
+	
+	public int getNumeroReproducciones() {
+		return numeroReproducciones;
+	}
+
+	public void setNumeroReproducciones(int numeroReproducciones) {
+		this.numeroReproducciones = numeroReproducciones;
+	}
+	
+	public void aumentarReproducciones(){
+		numeroReproducciones++; 
+		for (int i=0;i<lista.size();i++) {
+			lista.get(i).aumentarReproducciones();
+		}
 	}
 }
