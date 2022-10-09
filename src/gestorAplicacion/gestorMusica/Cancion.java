@@ -8,7 +8,6 @@ public class Cancion {
 	private static ArrayList<Cancion> cancionesExistentes;
 	private String nombre;
 	private Artista artista;
-	private ArrayList<Artista> listaArtistas = null;
 	private Genero genero;
 	private int duracion; // Duracion en segundos, para facilitar los calculos
 	private int reproducciones;
@@ -17,7 +16,6 @@ public class Cancion {
 		cancionesExistentes = new ArrayList<>();
 	}
 	
-	// Este constructor está sobrecargado: Una canción puede tener un solo artista
 	public Cancion(String nombre, Artista artista, Genero genero, int duracion) {
 		this.nombre = nombre;
 		this.artista = artista;
@@ -26,17 +24,7 @@ public class Cancion {
 		cancionesExistentes.add(this);
 		
 	}
-	
-	// Este constructor está sobrecargado: Una canción puede tener varios artistas
-		public Cancion(String nombre, ArrayList<Artista> listaArtistas, Genero genero, int duracion) {
-			this.nombre = nombre;
-			this.listaArtistas = listaArtistas;
-			this.genero = genero;
-			this.duracion = duracion;
-			cancionesExistentes.add(this);
-			
-		}
-	
+		
 	public String getNombre() {
 		return nombre;
 	}
@@ -52,15 +40,7 @@ public class Cancion {
 	public void setArtistas(Artista artista) {
 		this.artista = artista;
 	}
-	
-	public ArrayList<Artista> getListaArtistas() {
-		return listaArtistas;
-	}
-
-	public void setListaArtistas(ArrayList<Artista> listaArtistas) {
-		this.listaArtistas = listaArtistas;
-	}
-	
+		
 	public Genero getGenero() {
 		return genero;
 	}
@@ -94,26 +74,7 @@ public class Cancion {
 	}
 
 	public String toString() {
-		
-		String nombreA = "";
-		int minutos = duracion / 60;
-		int segundos = duracion % 60;
-		
-		if (listaArtistas != null){
-			int tam = listaArtistas.size();
-			for (int i = 0; i < tam - 1; i++) {
-				nombreA += listaArtistas.get(i).getNombre() + ", ";
-			}
-			nombreA += listaArtistas.get(tam - 1);
-		} else {
-			nombreA = artista.getNombre();
-		}
-		
-		return "Nombre: " + nombre + "\n" + 
-			   "Artista(s): " + nombreA + "\n" +
-			   "Género: " + genero + "\n" +
-			   "Duración: " + minutos + ":" + segundos;
+		return "Se está reproduciendo la canción " + nombre;
 	}
-	
 	
 }
