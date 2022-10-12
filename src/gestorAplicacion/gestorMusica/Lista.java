@@ -1,7 +1,7 @@
 package gestorAplicacion.gestorMusica;
 
 import java.util.ArrayList;
-
+import java.util.Comparator;
 import gestorAplicacion.gestorPersonas.*;
 
 public class Lista {
@@ -73,5 +73,17 @@ public class Lista {
 		for (int i=0;i<lista.size();i++) {
 			lista.get(i).aumentarReproducciones();
 		}
+	}
+	public ArrayList<Cancion> ordenarPorNombre(Lista lista){
+		lista.sort(Comparator.comparing(Cancion::getName()).thenComparing(Cancion::getArtista().getNombre()));
+		return lista;
+	}
+	public ArrayList<Cancion> ordenarPorAno(Lista lista){
+		lista.sort(Comparator.comparing(Cancion::getAno()));
+		return lista;
+	}
+	public ArrayList<Cancion> ordenarPorReproduciones(Lista lista){
+		lista.sort(Comparator.comparing(Cancion::getReproduciones()));
+		return lista;
 	}
 }
