@@ -6,11 +6,9 @@ import gestorAplicacion.gestorPersonas.Artista;
 public class Cancion {
 	
 	private static ArrayList<Cancion> cancionesExistentes;
-	private String nombre;
 	private Artista artista;
 	private Genero genero;
 	private int duracion; // Duracion en segundos, para facilitar los calculos
-	private int reproducciones;
 	private int ano;
 	
 	static {
@@ -18,7 +16,7 @@ public class Cancion {
 	}
 	
 	public Cancion(String nombre, Artista artista, Genero genero, int duracion, int ano) {
-		this.nombre = nombre;
+		super(nombre);
 		this.artista = artista;
 		this.genero = genero;
 		this.duracion = duracion;
@@ -26,14 +24,6 @@ public class Cancion {
 		cancionesExistentes.add(this);
 	}
 		
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
 	public Artista getArtistas() {
 		return artista;
 	}
@@ -58,14 +48,6 @@ public class Cancion {
 		this.duracion = duracion;
 	}
 	
-	public int getReproducciones() {
-		return reproducciones;
-	}
-	
-	public void setReproducciones(int reproducciones) {
-		this.reproducciones = reproducciones;
-	}
-	
 	public int getAno(){
 		return ano;
 	}
@@ -85,7 +67,7 @@ public class Cancion {
 	}
 	
 	public void aumentarReproducciones(){
-		reproducciones++; 
+		this.reproducciones++; 
 		}
 	
 }
