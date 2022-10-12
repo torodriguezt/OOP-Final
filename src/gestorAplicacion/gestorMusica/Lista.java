@@ -10,7 +10,6 @@ public class Lista extends Musica {
 	
 	public Lista(String nombre, Usuario usuario) {
 		
-		
 		lista=new ArrayList<>();
 		this.usuario = usuario;
 	}
