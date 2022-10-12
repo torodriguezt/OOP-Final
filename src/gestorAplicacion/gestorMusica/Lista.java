@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import gestorAplicacion.gestorPersonas.*;
 
-public class Lista {
+public class Lista extends Musica {
 	private ArrayList<Cancion> lista;
 	private Usuario usuario;
-	private String nombre;
-	private int numeroReproducciones;
 	
 	public Lista(String nombre, Usuario usuario) {
+		
+		
 		lista=new ArrayList<>();
 		this.usuario = usuario;
-		this.nombre=nombre;
 	}
 	
 	public Lista(String nombre,ArrayList<Cancion> lista, Usuario usuario) {
+		
+		super(nombre);
 		this.lista=lista;
 		this.usuario = usuario;
-		this.nombre=nombre;
 	}
 	
 	public ArrayList<Cancion> getLista() {
@@ -38,14 +38,6 @@ public class Lista {
 		this.usuario = usuario;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
 	public String agregarCancion(Cancion cancion) {
 		lista.add(cancion);
 		return "Se ha agregado la canción "+cancion.getNombre()+" a la lista "+nombre+" con exito";
@@ -59,17 +51,11 @@ public class Lista {
 	public String toString() {
 		return "Reproduciendo la lista "+nombre;
 	}
-	
-	public int getNumeroReproducciones() {
-		return numeroReproducciones;
-	}
 
-	public void setNumeroReproducciones(int numeroReproducciones) {
-		this.numeroReproducciones = numeroReproducciones;
-	}
-	
 	public void aumentarReproducciones(){
-		numeroReproducciones++; 
+		
+		this.numeroReproducciones++; 
+		
 		for (int i=0;i<lista.size();i++) {
 			lista.get(i).aumentarReproducciones();
 		}
