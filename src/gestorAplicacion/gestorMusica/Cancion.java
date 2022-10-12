@@ -11,18 +11,19 @@ public class Cancion {
 	private Genero genero;
 	private int duracion; // Duracion en segundos, para facilitar los calculos
 	private int reproducciones;
+	private int ano;
 	
 	static {
 		cancionesExistentes = new ArrayList<>();
 	}
 	
-	public Cancion(String nombre, Artista artista, Genero genero, int duracion) {
+	public Cancion(String nombre, Artista artista, Genero genero, int duracion, int ano) {
 		this.nombre = nombre;
 		this.artista = artista;
 		this.genero = genero;
 		this.duracion = duracion;
+		this.ano=ano;
 		cancionesExistentes.add(this);
-		
 	}
 		
 	public String getNombre() {
@@ -65,6 +66,12 @@ public class Cancion {
 		this.reproducciones = reproducciones;
 	}
 	
+	public int getAno(){
+		return ano;
+	}
+	public void setAno(int ano){
+		this.ano=ano;
+	}
 	public static ArrayList<Cancion> getCancionesExistentes() {
 		return cancionesExistentes;
 	}
