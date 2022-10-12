@@ -1,19 +1,22 @@
 package gestorAplicacion.gestorMusica;
 import java.util.ArrayList;
 import gestorAplicacion.gestorPersonas.Artista;
-
+import gestorAplicacion.gestorPersonas.Usuario;
 
 public class Coleccion {
 	
 	private String nombre;
+	private Usuario usuario;
 	private ArrayList<Lista> playlist= new ArrayList<Lista>();
 	
 	
-	public Coleccion(String nombre, ArrayList<Lista> playlist) {
+	public Coleccion(String nombre,Usuario usuario,ArrayList<Lista> playlist) {
 		this.nombre=nombre;
+		this.usuario=usuario
 		for (int i=0;i<playlist.size();i++) {
 			 this.playlist.add(playlist.get(i));
 		}
+		Usuario.getColeccion(this);
 	}
 
 
