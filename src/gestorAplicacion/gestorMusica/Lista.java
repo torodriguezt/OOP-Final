@@ -6,6 +6,8 @@ import gestorAplicacion.gestorPersonas.*;
 public class Lista extends Musica {
 	private ArrayList<Cancion> lista;
 	private Usuario usuario;
+	private int duracionTotal;
+	private String descripcion;
 	
 	public Lista(String nombre, Usuario usuario) {
 		super(nombre);
@@ -34,6 +36,14 @@ public class Lista extends Musica {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public int duracionLista(Lista elementos) {
+		for (int i = 0; i<elementos.lista.size();i++) {
+			duracionTotal = elementos.lista.get(i).getDuracion()+duracionTotal;
+		}
+		return duracionTotal;
+		
+	}
 
 	public String agregarCancion(Cancion cancion) {
 		lista.add(cancion);
@@ -55,6 +65,15 @@ public class Lista extends Musica {
 			lista.get(i).aumentarReproducciones();
 		}
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public ArrayList<Cancion> ordenarPorNombre(Lista lista){
 		lista.sort(Comparator.comparing(Cancion::getName()).thenComparing(Cancion::getArtista().getNombre()));
 		return lista;

@@ -10,6 +10,7 @@ public class Cancion extends Musica{
 	private Genero genero;
 	private int duracion; // Duracion en segundos, para facilitar los calculos
 	private int ano;
+	private ArrayList<Cancion> meGusta;
 	
 	static {
 		cancionesExistentes = new ArrayList<>();
@@ -68,6 +69,16 @@ public class Cancion extends Musica{
 	
 	public void aumentarReproducciones(){
 		this.reproducciones++; 
-		}
+	}
+	
+	public void agregarMeGusta(Cancion cancion) {
+		meGusta.add(cancion);
+	}
+	
+	public void eliminarMeGusta(Cancion cancion) {
+		meGusta.remove(cancion);
+	}
+	
+	
 	
 }

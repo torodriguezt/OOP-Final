@@ -10,7 +10,8 @@ public class Artista extends Persona {
 	
 	public Artista(String nombre, ArrayList<Cancion> canciones, Genero genero) {
 		//Modificar clase abstract
-		this.nombre = nombre;
+		super(nombre);
+		//this.nombre = nombre;
 		this.canciones = canciones;
 		this.genero = genero;
 	}
