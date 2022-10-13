@@ -4,8 +4,6 @@ public abstract class Musica {
     protected int reproducciones;
 
     public Musica(String nombre){
-
-        
         this.nombre = nombre;
         this.reproducciones = 0;
     }
@@ -18,11 +16,11 @@ public abstract class Musica {
 		this.nombre = nombre;
 	}
 
-    public String getReproducciones() {
+    public int getReproducciones() {
 		return reproducciones;
 	}
 
-	public void setReproducciones(String reproducciones) {
+	public void setReproducciones(int reproducciones) {
 		this.reproducciones = reproducciones;
 	}
      

@@ -1,5 +1,4 @@
 package gestorAplicacion.gestorMusica;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import gestorAplicacion.gestorPersonas.*;
@@ -9,13 +8,12 @@ public class Lista extends Musica {
 	private Usuario usuario;
 	
 	public Lista(String nombre, Usuario usuario) {
-		
+		super(nombre);
 		lista=new ArrayList<>();
 		this.usuario = usuario;
 	}
 	
 	public Lista(String nombre,ArrayList<Cancion> lista, Usuario usuario) {
-		
 		super(nombre);
 		this.lista=lista;
 		this.usuario = usuario;
@@ -52,9 +50,7 @@ public class Lista extends Musica {
 	}
 
 	public void aumentarReproducciones(){
-		
-		this.numeroReproducciones++; 
-		
+		this.reproducciones++; 
 		for (int i=0;i<lista.size();i++) {
 			lista.get(i).aumentarReproducciones();
 		}

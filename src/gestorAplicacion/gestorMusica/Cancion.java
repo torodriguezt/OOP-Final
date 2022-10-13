@@ -3,7 +3,7 @@ package gestorAplicacion.gestorMusica;
 import java.util.ArrayList;
 import gestorAplicacion.gestorPersonas.Artista;
 
-public class Cancion {
+public class Cancion extends Musica{
 	
 	private static ArrayList<Cancion> cancionesExistentes;
 	private Artista artista;

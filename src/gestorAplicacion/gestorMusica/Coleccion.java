@@ -12,11 +12,21 @@ public class Coleccion {
 	
 	public Coleccion(String nombre,Usuario usuario,ArrayList<Lista> playlist) {
 		this.nombre=nombre;
-		this.usuario=usuario
+		this.usuario=usuario;
 		for (int i=0;i<playlist.size();i++) {
 			 this.playlist.add(playlist.get(i));
 		}
-		Usuario.getColeccion(this);
+		usuario.setColeccion(this);
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 

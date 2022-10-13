@@ -10,17 +10,17 @@ public class Usuario extends Persona {
     private int tiempoEscuchado=0;
     
     public Usuario(String nombre){
-        super(nombre);
+    	super(nombre);
     }
     
     public String reproducir(Cancion cancion){
-        cancion.aumentarReproduciones();
+        cancion.aumentarReproducciones();
         tiempoEscuchado += cancion.getDuracion();
         return cancion.toString();
     }
 
     public String reproducir(Lista lista){
-        lista.aumentarReproduciones();
+        lista.aumentarReproducciones();
         tiempoEscuchado += lista.getDuracion();
         return lista.toString();
     }
