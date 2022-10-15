@@ -1,3 +1,5 @@
+package gestorAplicacion.gestorMusica;
+
 public abstract class Musica {
 
     protected String nombre;

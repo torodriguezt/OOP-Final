@@ -40,7 +40,7 @@ public class Usuario extends Persona {
     }
     
     public void agregarCancion(Cancion cancion) {
-    	canciones.add(cancion.getNombre());
+    	canciones.add(cancion);
     }
     
     
