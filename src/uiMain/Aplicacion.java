@@ -228,3 +228,236 @@ public class Aplicacion {
 							error.printStackTrace();
 						}
 					}
+				} while(opcion2 != 7);
+				return;
+			}
+	    }
+		System.out.println("El usuario no existe");
+	}
+	
+	static void crearArtista() {
+		System.out.println("Ingresa el nombre del Artista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		int opcion;
+		Genero genero;
+		
+		System.out.println("¿Cuál es su Género Musical?");
+		System.out.println("1) Reggaeton");
+		System.out.println("2) Rock");
+		System.out.println("3) Pop");
+		System.out.println("4) Salsa");
+		System.out.println("5) Kpop");
+		System.out.println("6) Ninguno de los anteriores");
+		
+		opcion = sc.nextInt();
+		if(opcion == 1) { genero = Genero.REGGAETON;}
+		else if(opcion == 2) { genero = Genero.ROCK; }
+		else if(opcion == 3) { genero = Genero.POP; }
+		else if(opcion == 4) { genero = Genero.SALSA; }
+		else if(opcion == 5) { genero = Genero.KPOP; }
+		else { 
+			new Artista(nombre);
+			System.out.println("¡El artista " + nombre + " se añadió con éxito!");
+			return;
+		}
+		
+		new Artista(nombre, genero);
+		System.out.println("¡El artista " + nombre + " se añadió con éxito!");
+	}
+	
+	static void crearCancion() {
+		System.out.println("Ingresa el nombre de la Canción");
+		sc.nextLine();
+		String nCancion = sc.nextLine();
+		String nArtista; int opcion; Genero genero; int duracion; int ano;
+		
+		System.out.println("\nIngresa el nombre del Artista que la interpreta");
+		nArtista = sc.nextLine();
+		for(Artista artista: Artista.getArtistasDisponibles()) {
+			if(artista.getNombre().equals(nArtista)) {
+				
+				System.out.println("\n¿Cuánto dura la Canción (en segundos)?");
+				duracion = sc.nextInt();
+				System.out.println("\n¿En qué año se lanzó la Canción?");
+				ano = sc.nextInt();
+				
+				System.out.println("\n¿Cuál es el Género Musical de la Canción?");
+				System.out.println("1) Reggaeton");
+				System.out.println("2) Rock");
+				System.out.println("3) Pop");
+				System.out.println("4) Salsa");
+				System.out.println("5) Kpop");
+				System.out.println("6) Ninguno de los anteriores");
+				
+				opcion = sc.nextInt();
+				if(opcion == 1) { genero = Genero.REGGAETON;}
+				else if(opcion == 2) { genero = Genero.ROCK; }
+				else if(opcion == 3) { genero = Genero.POP; }
+				else if(opcion == 4) { genero = Genero.SALSA; }
+				else if(opcion == 5) { genero = Genero.KPOP; }
+				else {
+					new Cancion(nCancion, artista, duracion, ano);
+					System.out.println("¡La canción " + nCancion + " se añadió con éxito!");
+					return;
+				}
+				
+				new Cancion(nCancion, artista, genero, duracion, ano);
+				System.out.println("¡La canción " + nCancion + " se añadió con éxito!");
+				return;
+			}
+		}
+		System.out.println("¡El artista " + nArtista + " no existe!");
+		return;
+	}
+	
+	static void billboard(Usuario usu) {
+		Artista artistaTop=usu.topArtista();
+		if (artistaTop==null) {
+			System.out.println("No tienes artista favorito");
+		}else {
+		System.out.println("Tu artista favorito es "+artistaTop.getNombre());
+		}
+		
+		for (Artista artista: Artista.getArtistasDisponibles()) {
+			double puntaje=0.0;
+			if(artista.getGenero().equals(Usuario.genFavoritoSpotyfree())) {
+				puntaje=artista.getReproducciones(artista)*Artista.FACTORREPRODUCCIONES+artista.getMeGusta(artista)*Artista.FACTORMEGUSTA+Usuario.BONIFICACION;
+				artista.setPuntaje(puntaje);
+			}else {
+				puntaje=artista.getReproducciones(artista)*Artista.FACTORREPRODUCCIONES+artista.getMeGusta(artista)*Artista.FACTORMEGUSTA;
+				artista.setPuntaje(puntaje);
+			}
+		}
+		if (Cancion.topCancion()!=null) {
+		    Artista aBoniCancion = Cancion.topCancion().getArtista();
+			Double oldPuntaje = aBoniCancion.getPuntaje();
+			if (oldPuntaje == null){
+				oldPuntaje = 0.0;
+			}
+			aBoniCancion.setPuntaje(oldPuntaje+Usuario.BONIFICACION);
+		}
+		
+	    System.out.println("\nRANKING BILLBOARD 2022");
+	    System.out.println("");
+	    int i= Artista.getArtistasDisponibles().size()-1;
+	    int p=1;
+	    String mensaje="";
+	    ArrayList<Artista> ListaArtista = Artista.ordenarPorPuntaje();;
+	  
+	    while(i!=0) {
+	        if(p==1) {
+	        	if(artistaTop!=null) {
+	        		if (ListaArtista.get(i).getNombre().equals(artistaTop.getNombre())){
+	        			mensaje="Felicidades! Tu artista favorito es el #1!";
+	        		}else {
+	        			mensaje="A seguir esforzandose para que tu artista logre ser el #1!";
+	        	    }
+	            }else {
+	            	mensaje="";
+	            }
+	        }
+	        System.out.println("Artista #"+p+" "+ListaArtista.get(i).getNombre());
+	        p++;
+	        i=i-1;
+	    }
+	    System.out.println("Artista #"+p+" "+ListaArtista.get(0).getNombre());
+	    System.out.println("\n"+mensaje);
+	}
+	
+	
+	static void accederColeccion(Usuario usuario) {
+		
+		int opcion3;
+		do {
+			System.out.println(" _____       _               _             \r\n"
+					+ "/  __ \\     | |             (_)            \r\n"
+					+ "| /  \\/ ___ | | ___  ___ ___ _  ___  _ __  \r\n"
+					+ "| |    / _ \\| |/ _ \\/ __/ __| |/ _ \\| '_ \\ \r\n"
+					+ "| \\__/\\ (_) | |  __/ (_| (__| | (_) | | | |\r\n"
+					+ " \\____/\\___/|_|\\___|\\___\\___|_|\\___/|_| |_|\r\n"
+					+ "");
+			System.out.println("\nHola, " + usuario.getNombre());
+			System.out.println("Estas son tus Opciones:");
+			System.out.println("1) Ver tus Listas de Reproducción");
+			System.out.println("2) Ver Tus Canciones Favoritas");
+			System.out.println("3) Crear Lista de Reproducción");
+			System.out.println("4) Eliminar Lista de Reproducción");
+			System.out.println("5) Encontrar Nueva Música");
+			System.out.println("6) Agregar una Canción a una Lista");
+			System.out.println("7) Eliminar una Canción de una Lista");
+			System.out.println("8) Ver Descripción de una Lista");
+			System.out.println("9) Cambiar Descripción de una Lista");
+			System.out.println("10) Reproducir una Canción");
+			System.out.println("11) Reproducir una Lista");
+			System.out.println("12) Tus Resúmenes de Género y Gustos");
+			System.out.println("13) Conoce tu Agrupación por Colores");
+			System.out.println("14) Ver tu lista colaborativa");
+			System.out.println("15) Salir de la Colección");
+			
+			opcion3 = sc.nextInt();
+			
+			switch(opcion3) {
+				case 1:
+					System.out.println("---------------------");
+					if (usuario.getColeccion().getListas().size() > 1) {
+						for (Lista lista: usuario.getColeccion().getListas()) {
+							if(!(lista instanceof MeGusta)) {
+								System.out.println(lista.infoLista()); }
+						} 
+					} else {
+						System.out.println("¡No has creado ninguna lista aún!");
+					}
+					break; 
+				case 2:
+					System.out.println("---------------------");
+					System.out.println(usuario.getFavoritos());
+					int elegir;
+					do {
+						System.out.println("1) Agregar Canción a Favoritos");
+						System.out.println("2) Eliminar Canción de Favoritos");
+						System.out.println("3) Reproducir Favoritos");
+						System.out.println("4) Volver al Menú Anterior");
+						elegir = sc.nextInt();
+							
+						switch(elegir) {
+							case 1:
+								cancionMeGusta(usuario);
+								break;
+							case 2:
+								cancionNoMeGusta(usuario);
+								break;
+							case 3: 
+								reproLista(usuario,usuario.getFavoritos().getFavoritos());
+								break;
+						}
+						if (elegir != 4) {
+							System.out.println("\nPresiona Enter para continuar");
+							try {
+								System.in.read();
+							} catch (IOException error) {
+								error.printStackTrace();
+								}
+						}
+					}	
+					 while(elegir !=4);	
+					break;
+				case 3:
+					System.out.println("---------------------");
+					crearLista(usuario);
+					break;
+				case 4: 
+					System.out.println("---------------------");
+					eliminarLista(usuario);
+					break;
+				case 5:
+					System.out.println("---------------------");
+					recomendarMusica(usuario);
+					break;
+				case 6: 
+					System.out.println("---------------------");
+					agregarCancion(usuario);
+					break;
+				case 7:
+					System.out.println("---------------------");
+					eliminarCancion(usuario);
