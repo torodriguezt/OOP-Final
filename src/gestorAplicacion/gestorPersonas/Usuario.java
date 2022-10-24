@@ -254,3 +254,53 @@ public class Usuario implements Persona, Serializable {
 				REGGAETON++;
 				if (REGGAETON>mayor) {
 					mayor=REGGAETON;
+					genero=Genero.REGGAETON;
+				}
+			}
+			else if(cancion.getGenero().equals(Genero.ROCK)){
+				ROCK++;
+				if (ROCK>mayor) {
+					mayor=ROCK;
+					genero=Genero.ROCK;
+				}
+			}
+			else if(cancion.getGenero().equals(Genero.SALSA)){
+				SALSA++;
+				if (SALSA>mayor) {
+					mayor=SALSA;
+					genero=Genero.SALSA;
+				}
+			}
+			else if(cancion.getGenero().equals(Genero.POP)){
+				POP++;
+				if (POP>mayor) {
+					mayor=POP;
+					genero=Genero.POP;
+				}
+			}
+			else if(cancion.getGenero().equals(Genero.KPOP)){
+				Kpop++;
+				if (Kpop>mayor) {
+					mayor=Kpop;
+					genero=Genero.KPOP;
+				}
+			}
+			else {
+				NO_ESPECIFICADO++;
+				if (NO_ESPECIFICADO>mayor) {
+					mayor=NO_ESPECIFICADO;
+					genero=Genero.NO_ESPECIFICADO;
+				}
+			}
+		}	
+		return genero;
+	}
+	
+	public Usuario encontrarAmigo(ArrayList<Usuario> posiblesAmigos) {
+		if(posiblesAmigos.size() > 0) {
+			return posiblesAmigos.get(new Random().nextInt(posiblesAmigos.size()));
+		} else {
+			return null; 
+		}
+	}
+}
