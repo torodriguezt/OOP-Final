@@ -461,3 +461,236 @@ public class Aplicacion {
 				case 7:
 					System.out.println("---------------------");
 					eliminarCancion(usuario);
+					break;
+				case 8:
+					System.out.println("---------------------");
+					descripcionLista(usuario);
+					break;
+				case 9:
+					System.out.println("---------------------");
+					cambiarDescripcion(usuario);
+					break;
+				case 10:
+					System.out.println("---------------------");
+					reproCancion(usuario);
+					break;
+				case 11:
+				
+					System.out.println("---------------------");
+					System.out.println("Tus Listas Individuales");
+					reproLista(usuario);
+					break;
+								
+				case 12:
+					System.out.println("---------------------");
+					resumenesGenerosyGustos(usuario);
+					break;
+				case 13:
+					System.out.println("---------------------");
+					agrupacionColores(usuario);
+					break;
+					
+				case 14:
+					System.out.println("---------------------");
+					System.out.println("Tu Lista Colaborativa\n");
+					reproColaborativas(usuario); //Ver donde acomodar este llamado y ver metodo de usuarios que conforman la fusion
+					break;
+					
+				}
+			
+				if (opcion3 != 15) {
+					System.out.println("\nPresiona Enter para continuar");
+				try {
+					System.in.read();
+				} catch (IOException error) {
+					error.printStackTrace();
+				}
+			}
+		} while(opcion3 != 15);
+		return;
+				
+	}
+	
+	static void crearLista(Usuario usuario) {	
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		System.out.println("Ingresa una descripción para tu Lista");
+		String descripcion = sc.nextLine();
+		new Lista(nombre, usuario, descripcion);
+		System.out.println("¡La lista " + nombre + " se creó con éxito!");
+	}
+
+	static void crearLista(Usuario usuario, ArrayList<Cancion> lista) {	
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		System.out.println("Ingresa una descripción para tu Lista");
+		String descripcion = sc.nextLine();
+		new Lista(nombre, lista, usuario, descripcion);
+		System.out.println("¡La lista " + nombre + " se creó con éxito!");
+	}
+	
+	static void eliminarLista(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista que quieres eliminar");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				usuario.getColeccion().eliminarLista(lista);
+				System.out.println("La Lista: "+ nombre + " se eliminó con éxito");
+				return;
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+
+	static void recomendarMusica(Usuario usuario) {
+		
+		ArrayList<Cancion> recomendadas = new ArrayList<Cancion>();	
+		
+		Genero genero = usuario.tuGenFavorito(usuario);
+		
+		if(genero != null){
+			
+			for (Cancion cancion : Cancion.getCancionesDisponibles()) {
+				if(cancion.getGenero() == genero){
+					recomendadas.add(cancion);
+				}	
+			}
+
+			ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+			
+			canciones = usuario.getColeccion().cancionesUsuario();
+
+			for(Cancion cancion : usuario.getFavoritos().getFavoritos()){
+
+				if(canciones.contains(cancion) == false){
+
+					canciones.add(cancion);
+				}
+			}
+			ArrayList<Cancion> recomendadas2 = new ArrayList<Cancion>();
+
+			for (Cancion cancion : recomendadas) {
+
+				boolean flag = true;
+
+				for (Cancion cancion2 : canciones) {
+
+					String a1 = cancion.getNombre();
+					String a2 = cancion2.getNombre();
+
+					if(a1.equals(a2)){
+						flag = false;
+					}
+					
+				}
+
+				if(flag){
+					recomendadas2.add(cancion);
+				}
+				
+			}
+
+			System.out.println("Segun la musica de tu colección estas canciones te podrian interesar: \n");
+			recomendadas2.forEach((Cancion cancion) -> System.out.println(cancion.getNombre()));
+		}
+		else{
+			System.out.println("Para recomendaciones personalizadas dale me gusta a algunas canciones. \n");
+			System.out.println("Estas son las 3 canciones mas escuchadas por la comunidad");
+			recomendadas = (ArrayList<Cancion>)Cancion.getCancionesDisponibles().clone();
+			recomendadas.sort((Comparator.comparing(Cancion :: getReproducciones)).reversed());
+
+			for(int i = 0; i<3; i++){
+				System.out.println(recomendadas.get(i).getNombre());
+			}
+		}
+
+		System.out.println("");
+		System.out.println("¿Que deseas hacer?");
+		System.out.println("1) Escuchar las canciones");
+		System.out.println("2) Agregar lista de recomendaciones a la colección");
+		System.out.println("3) Agregar canción a una lista");
+		System.out.println("4) Volver al menu principal");
+
+		int opcion4 = sc.nextInt();
+			
+		switch(opcion4) {
+			case 1:
+				System.out.println("---------------------");
+				reproLista(usuario, recomendadas);
+				break; 
+			case 2:
+				System.out.println("---------------------");
+				crearLista(usuario, recomendadas);
+				break;
+			case 3: 
+				System.out.println("---------------------");
+				agregarCancion(usuario);
+				break;
+			case 4: 
+				accederColeccion(usuario);
+				break;
+		}
+	}
+
+	static void agregarCancion(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				System.out.println("\nIngresa el nombre de la Canción");
+				String nCancion = sc.nextLine();
+				for (Cancion cancion: Cancion.getCancionesDisponibles()) {
+					if (cancion.getNombre().equals(nCancion)) {
+						for(Cancion c: lista.getLista()) {
+							if (cancion.getNombre().equals(c.getNombre())) {
+								System.out.println("No puedes agregar esta canción a tu lista, porque ya es parte de ella");
+							    return;
+							}
+						}
+						lista.agregarCancion(cancion);
+						System.out.println("La canción: "+ nCancion + " se añadió con éxito");
+						return;
+					}
+				}
+				System.out.println("La canción " + nCancion + " no existe");
+				return;
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+	
+	static void eliminarCancion(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				System.out.println("\nIngresa el nombre de la Canción");
+				String nCancion = sc.nextLine();
+				for (Cancion cancion: Cancion.getCancionesDisponibles()) {
+					if (cancion.getNombre().equals(nCancion)) {
+						lista.eliminarCancion(cancion);
+						System.out.println("La canción: "+ nCancion + " se eliminó con éxito");
+						return;
+					}
+				}
+				System.out.println("La canción " + nCancion + " no existe");
+				return;
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+	
+	static void descripcionLista(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				System.out.println("\nDescripcion de la lista "+nombre+":");
+				System.out.println(lista.getDescripcion());
+				return;
