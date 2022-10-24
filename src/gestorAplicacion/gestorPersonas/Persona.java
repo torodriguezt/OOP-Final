@@ -1,21 +1,9 @@
 package gestorAplicacion.gestorPersonas;
 
-public abstract class Persona {
-
-    protected String nombre;
-    
-    public Persona(String nombre) {
-    	this.nombre=nombre;
-    }
-
+public interface Persona {
+	public final int BONIFICACION=1;
+	public final double FACTORMEGUSTA=0.7;
+	public final double FACTORREPRODUCCIONES=0.3;
     abstract public String toString();
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
 }
