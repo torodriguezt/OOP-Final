@@ -1,19 +1,33 @@
 package gestorAplicacion.gestorPersonas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import gestorAplicacion.gestorMusica.*;
 
-public class Artista extends Persona {
+public class Artista implements Persona, Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Artista> artistasDisponibles;
 	private String nombre;
 	private ArrayList<Cancion> canciones= new ArrayList<Cancion>();
 	private Genero genero;
+	private Double puntaje;
 	
-	public Artista(String nombre, ArrayList<Cancion> canciones, Genero genero) {
-		//Modificar clase abstract
-		super(nombre);
-		//this.nombre = nombre;
-		this.canciones = canciones;
+	static {
+		artistasDisponibles = new ArrayList<>();
+	}
+
+	public Artista(String nombre, Genero genero) {
+		this.nombre = nombre;
 		this.genero = genero;
+		// Agregar a la lista general de artistas
+		artistasDisponibles.add(this);
+	}
+	
+	public Artista(String nombre) {
+		this(nombre, Genero.NO_ESPECIFICADO);
 	}
 	
 	public String getNombre() {
@@ -36,7 +50,15 @@ public class Artista extends Persona {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	
+
+	public Double getPuntaje() {
+		return puntaje;
+	}
+
+	public void setPuntaje(Double puntaje) {
+		this.puntaje = puntaje;
+	}
+
 	public String agregarCancion(Cancion cancion) {
 		canciones.add(cancion);
 		return "La cancion " + cancion.getNombre() + "fue agregada existosamente";
@@ -47,38 +69,9 @@ public class Artista extends Persona {
 		return "La cancion " + cancion.getNombre() + "fue eliminada existosamente";
 	}
 	
+	@Override
 	public String toString() {
-		return nombre + "es un artista con " + canciones.size() + "publicadas en Spotifree pertenecientes al genero de " 
+		return nombre + " es un artista con " + canciones.size() + " canciones publicadas en Spotifree pertenecientes al género " 
 				+ genero;
 	}
 	
-	public String estadisticas(ArrayList<Cancion> canciones) {
-		
-		Cancion masDuracion = null;
-		Cancion menosDuracion = null;
-		int sumaTotal = 0;
-		
-		for(int i = 0; i<canciones.size(); i++) {
-			canciones.get(i).getDuracion();
-			if (masDuracion == null || masDuracion.getDuracion()<canciones.get(i).getDuracion())
-				masDuracion = canciones.get(i);
-		}
-		for(int i = 0; i<canciones.size(); i++) {
-			canciones.get(i).getDuracion();
-			if (menosDuracion == null || menosDuracion.getDuracion()>canciones.get(i).getDuracion())
-				menosDuracion = canciones.get(i);
-		}	
-		for(int i = 0; i<canciones.size(); i++) {
-			sumaTotal = sumaTotal + canciones.get(i).getDuracion();
-		}	
-		int promedio = (sumaTotal/canciones.size());
-		
-		return "La cancion mas larga de " + nombre + "es: " +  masDuracion.getNombre() + "\n" +
-				"La canciones mas corta del "+ nombre + "es: " +  menosDuracion.getNombre() + "\n" +
-				"El promedio de las canciones de " + nombre + "es: " + promedio;
-		
-	}
-	
-	
-		
-}
