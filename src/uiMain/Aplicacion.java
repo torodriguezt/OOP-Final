@@ -929,7 +929,230 @@ public class Aplicacion {
 					if(R>=NO_ESPECIFICADO) {
 						parada=false;
 					}
+				}
+				else { 
+					parada=false;
+				}
+			} 
+			 System.out.println("Has utilizado la aplicacion "+usuario.getTiempoEscuchado()+" segundos");
+			 System.out.printf("\nEres un %.2f compatible con el genero REGGAETON",PuntosFinales.get(0));
+			 System.out.printf("\nEres un %.2f compatible con el genero ROCK",PuntosFinales.get(1));
+			 System.out.printf("\nEres un %.2f compatible con el genero POP",PuntosFinales.get(2));
+			 System.out.printf("\nEres un %.2f compatible con el genero SALSA",PuntosFinales.get(3));
+			 System.out.printf("\nEres un %.2f compatible con el genero KPOP",PuntosFinales.get(4));
+			 System.out.printf("\nEres un %.2f compatible con el genero NO_ESPECIFICADO\n\n",PuntosFinales.get(5));
+			 
+			 if(usuario.getGenFavorito().toString()!=genero.get(posicion)) {
+				 System.out.println("Tus gustos cambian constantemente. El género que mas escuchas es "+genero.get(posicion)+". ¿Quieres cambiar tu genero favorito a este?");
+				 System.out.println("1) Sí");
+				 System.out.println("2) No");
+				 int seleccion=sc.nextInt();
+				 if(seleccion==1) {usuario.setGenFavorito(Genero.valueOf(genero.get(posicion)));
+				 System.out.println("\nTu género ha sido cambiado exitosamente");
+		}
+				 
+		}		
+			 else {System.out.println("\nEl género "+genero.get(posicion)+" sigue siedo tu favorito");}
+			System.out.println("Creamos una lista de compatibilidad de tus generos llamada ListaMix. ¿la quieres guardar? ");
+			 System.out.println("1) Sí");
+			 System.out.println("2) No");
+			 int seleccion=sc.nextInt();
+			  if(seleccion==1) {				
+				  if (usuario.getColeccion().getListas().size() > 0){
+					for (Lista lista: usuario.getColeccion().getListas()){
+						if("ListaMix".equals(lista.getNombre())){
+							lista.setLista(CancionMix);
+						}
+					} 
+				} 
+				new Lista("ListaMix",CancionMix,usuario,"Lista creada por tus gustos");
+				System.out.println("\nEsperamos que la disfrutes ;)");
+		  }
+			  else  System.out.println("\nLástima :(");
+		}
+		static void reproColaborativas(Usuario usuario) {
+			ArrayList<Usuario> users = Usuario.getUsuariosExistentes();
+			ArrayList<Usuario> dueños = new ArrayList<Usuario>();
+			ArrayList<Cancion> cancionesAgregar = new ArrayList<Cancion>();
+			
+			Boolean control = true;
+			while (control == true){
+				Usuario usuario2 = users.get(new Random().nextInt(users.size()));
+				if (usuario != usuario2) {
+					dueños.add(usuario);
+					dueños.add(usuario2);
+					control = false;
+				}
 			}
+			
+			String nombre1 = dueños.get(0).getNombre();
+			String nombre2 = dueños.get(1).getNombre();
+			String nombre = nombre1 + " + " + nombre2;
+					
+			// Ya tenemos donde guardar la lista para ambos, empezamos a ponerle canciones de sus listas al azar
+			MeGusta lista1 = dueños.get(0).getFavoritos();
+			MeGusta lista2 = dueños.get(1).getFavoritos();
+					
+			for(Cancion cancion: lista1.getFavoritos()) {
+				cancionesAgregar.add(cancion);
+			}
+			
+			for (Cancion cancion: lista2.getFavoritos()) {
+				cancionesAgregar.add(cancion);
+			}
+			
+			// Con esta instancia eliminamos las posibles canciones repetidas de la lista colaborativa
+			Set<Cancion> cancionesColaborativa = new HashSet<Cancion>();
+			for (Cancion cancion: cancionesAgregar) {
+				cancionesColaborativa.add(cancion);
+			}
+			
+			Lista colaborativa = new Lista(nombre, dueños, cancionesColaborativa);
+			
+			System.out.println(colaborativa.infoColaborativa());
+		
+			// Revisar si el acceso a algun usuario se da correctamente por ser un array de dos elementos
+			System.out.println(colaborativa.getUsuarios().get(0).getColeccion().similitudesGenero(cancionesAgregar));
+			System.out.println(colaborativa.getUsuarios().get(1).getColeccion().similitudesCancion(cancionesAgregar));
+			
+			ArrayList<Cancion> canciones = new ArrayList <Cancion>(cancionesColaborativa);
+			
+			for(Usuario i: dueños) {
+				new Lista(nombre,canciones, i, "Lista colaborativa");
+			}
+			System.out.println("Cancion colaborativa agregada a tu colección");
+		}
+		
+		static void agrupacionColores(Usuario usuario){
+					
+			int totalRe = 0; int totalRo = 0; int totalP = 0; int totalS = 0; int totalK = 0; int totalN = 0;
+	
+			ArrayList<Usuario> naranja = new ArrayList<Usuario>();
+			ArrayList<Usuario> negro = new ArrayList<Usuario>();
+			ArrayList<Usuario> rosado = new ArrayList<Usuario>();
+			ArrayList<Usuario> rojo = new ArrayList<Usuario>();
+			ArrayList<Usuario> morado = new ArrayList<Usuario>();
+			ArrayList<Usuario> blanco = new ArrayList<Usuario>();
+			Usuario amigo;
+			
+			// Con esta iteración se obtiene el total de canciones por género que tienen todos los usuarios 
+			// en sus listas, incluidas las listas de favoritos
+			for(Usuario usuarioComparar: Usuario.getUsuariosExistentes()){
+				for (Lista lista : usuarioComparar.getColeccion().getListas()) { 
+					for (Cancion cancion: lista.getLista()) {
+						if(cancion.getGenero().equals(Genero.REGGAETON)) { totalRe++; }
+						else if(cancion.getGenero().equals(Genero.ROCK)) { totalRo++; }
+						else if(cancion.getGenero().equals(Genero.POP)) { totalP++; }
+						else if(cancion.getGenero().equals(Genero.SALSA)) { totalS++; }
+						else if(cancion.getGenero().equals(Genero.KPOP)) { totalK++; }
+						else { totalN++; }
+					}
+				}
+				MeGusta favoritos = usuarioComparar.getFavoritos();
+				for (Cancion cancion: favoritos.getFavoritos()) {
+					if(cancion.getGenero().equals(Genero.REGGAETON)) { totalRe++; }
+					else if(cancion.getGenero().equals(Genero.ROCK)) { totalRo++; }
+					else if(cancion.getGenero().equals(Genero.POP)) { totalP++; }
+					else if(cancion.getGenero().equals(Genero.SALSA)) { totalS++; }
+					else if(cancion.getGenero().equals(Genero.KPOP)) { totalK++; }
+					else { totalN++; }
+				}
+			}
+					
+			int Re = 0; int Ro = 0; int P = 0; int S = 0; int K = 0; int N = 0;
+			for(Usuario usuarioComparar: Usuario.getUsuariosExistentes()) {
+				for (Lista lista : usuarioComparar.getColeccion().getListas()) {
+					Re += lista.totalPorGenero(Genero.REGGAETON);
+					Ro += lista.totalPorGenero(Genero.ROCK);
+					P += lista.totalPorGenero(Genero.POP);
+					S += lista.totalPorGenero(Genero.SALSA);
+					K += lista.totalPorGenero(Genero.KPOP);
+					N += lista.totalPorGenero(Genero.NO_ESPECIFICADO);	
+				}
+				
+				MeGusta favoritos = usuarioComparar.getFavoritos();
+				Re += favoritos.totalPorGenero(Genero.REGGAETON);
+				Ro += favoritos.totalPorGenero(Genero.ROCK);
+				P += favoritos.totalPorGenero(Genero.POP);
+				S += favoritos.totalPorGenero(Genero.SALSA);
+				K += favoritos.totalPorGenero(Genero.KPOP);
+				N += favoritos.totalPorGenero(Genero.NO_ESPECIFICADO);
+						
+				if (Re*100/totalRe >= 10) {
+					naranja.add(usuarioComparar);
+				} if(Ro*100/totalRo >= 10) {
+					negro.add(usuarioComparar);
+				} if(P*100/totalP >= 10) {
+					rosado.add(usuarioComparar);
+				} if(S*100/totalS >= 10) {
+					rojo.add(usuarioComparar);
+				} if(K*100/totalK >= 10) {
+					morado.add(usuarioComparar);
+				} if(N*100/totalN >= 10) {
+					blanco.add(usuarioComparar);
+				}
+			}
+					
+			System.out.println("¡Estos son los Colores que te Representan!\n");
+			ArrayList<Usuario> totales = new ArrayList<Usuario>();
+			if(naranja.contains(usuario)) {
+				System.out.println("Naranja");
+				for(Usuario miembro: naranja) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			if(negro.contains(usuario)) {
+				System.out.println("Negro");
+				for(Usuario miembro: negro) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			if(rosado.contains(usuario)) {
+				System.out.println("Rosado");
+				for(Usuario miembro: rosado) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			if(rojo.contains(usuario)) {
+				System.out.println("Rojo");
+				for(Usuario miembro: rojo) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			if(morado.contains(usuario)) {
+				System.out.println("Morado");
+				for(Usuario miembro: morado) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			if(blanco.contains(usuario)) {
+				System.out.println("Blanco");
+				for(Usuario miembro: blanco) {
+					if(!(miembro.getNombre().equals(usuario.getNombre()))) {
+						totales.add(miembro);
+					}
+				}
+			} 
+			
+			amigo = usuario.encontrarAmigo(totales);
+			
+			if (amigo == null) {
+				System.out.println("No compartes tu Agrupación por Colores con ningún usuario :c");
+			} else {
+				System.out.println("Según tus colores, alguien que podrías conocer es: \n");
+				System.out.println(amigo.getNombre());
+			}
+					
 		}
 	}
-}
+	
