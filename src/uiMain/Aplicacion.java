@@ -694,3 +694,242 @@ public class Aplicacion {
 				System.out.println("\nDescripcion de la lista "+nombre+":");
 				System.out.println(lista.getDescripcion());
 				return;
+				
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+	
+	static void cambiarDescripcion(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				System.out.println("\nIngrese la nueva descripción de la lista");
+				String nDescripcion = sc.nextLine();
+				lista.setDescripcion(nDescripcion);
+				System.out.println("\nLa descripción de la lista "+nombre+" se ha cambiado con éxito!");
+				return;
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+	
+	static void reproCancion(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la canción");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Cancion cancion: Cancion.getCancionesDisponibles()) {
+			if (cancion.getNombre().equals(nombre)) {
+				System.out.println(usuario.reproducir(cancion));
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\nLuego de " + cancion.getDuracion() + " segundos, la canción ha terminado");
+				return;
+			}
+		}
+		System.out.println("La cancion " + nombre + " no existe");
+	}
+	
+	static void reproLista(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la Lista");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Lista lista: usuario.getColeccion().getListas()) {
+			if (lista.getNombre().equals(nombre)) {
+				System.out.println(usuario.reproducir(lista));
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\n...");
+				System.out.println("\nLuego de " + lista.duracionLista() + " segundos, la lista ha terminado");
+				return;
+			}
+		}
+		System.out.println("La lista " + nombre + " no está en tu Colección");
+	}
+
+	static void reproLista(Usuario usuario, ArrayList<Cancion> lista) {
+		for (Cancion cancion: lista) {
+			System.out.println(usuario.reproducir(cancion));
+			System.out.println("\n...");
+			System.out.println("\n...");
+			System.out.println("\n...");
+			System.out.println("\n...");
+			System.out.println("\nLuego de "+ cancion.getDuracion() + " segundos, la canción ha terminado");
+		}
+	}
+	
+	static void cancionMeGusta(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la canción");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Cancion favorita: Cancion.getCancionesDisponibles()) {
+			if (favorita.getNombre().equals(nombre)) {
+				System.out.println(usuario.agregarMeGusta(favorita));
+				return;
+			}
+		}
+		System.out.println("La canción " + nombre + " no está disponible");
+	}
+	static void cancionNoMeGusta(Usuario usuario) {
+		System.out.println("Ingresa el nombre de la canción");
+		sc.nextLine();
+		String nombre = sc.nextLine();
+		for (Cancion cancion: usuario.getFavoritos().getFavoritos()) {
+			if (cancion.getNombre().equals(nombre)) {
+				System.out.println(usuario.eliminarMeGusta(cancion));
+				return;
+			}
+		}
+		System.out.println("La canción " + nombre + " no está disponible");
+	}
+	
+	static void resumenesGenerosyGustos(Usuario usuario) {
+		 ArrayList<Double> Puntos= usuario.puntosFavoritos(usuario);
+		 ArrayList<Double> PuntosExtras = usuario.getColeccion().PuntosExtras(usuario.getColeccion().getListas());
+		 ArrayList<Double> PuntosSumados = new ArrayList<Double>();
+		 ArrayList<Double> PuntosFinales = new ArrayList<Double>();
+		 ArrayList<String> genero = new ArrayList<String>();
+		 genero.add("REGGAETON");genero.add("ROCK");genero.add("POP");genero.add("SALSA");genero.add("KPOP");genero.add("NO_ESPECIFICADO");
+		 double totalPuntos=0;
+		 for (int i = 0; i < Puntos.size(); i++) {
+		 double suma =Puntos.get(i)+PuntosExtras.get(i);
+		 totalPuntos+=suma;
+		 PuntosSumados.add(suma);	
+		 }
+		 for (int i = 0; i < PuntosSumados.size(); i++) {
+			double operacion= PuntosSumados.get(i)/totalPuntos*100;
+			 PuntosFinales.add(operacion);
+		 }
+		 double mayor=0;
+		 int posicion=0;
+		 for (int i = 0; i < PuntosFinales.size(); i++) {
+			if(mayor<PuntosFinales.get(i)) {
+				mayor=PuntosFinales.get(i);
+				posicion=i;
+			}
+		 }
+		int REGGAETON= (int) Math.round((Puntos.get(0)*10)/100);
+		int ROCK=(int) Math.round((Puntos.get(1)*10)/100);
+		int POP= (int) Math.round((Puntos.get(2)*10)/100);
+		int SALSA=(int) Math.round((Puntos.get(3)*10)/100);
+		int KPOP= (int) Math.round((Puntos.get(4)*10)/100);
+		int NO_ESPECIFICADO= (int) Math.round((Puntos.get(5)*10)/100);
+		ArrayList<Cancion> cancionesREGGAETON =Lista.listaPorGenero(Genero.REGGAETON);
+		ArrayList<Cancion>  cancionesROCK =Lista.listaPorGenero(Genero.ROCK);
+		ArrayList<Cancion>  cancionesPOP =Lista.listaPorGenero(Genero.POP);
+		ArrayList<Cancion>  cancionesSALSA =Lista.listaPorGenero(Genero.SALSA);
+		ArrayList<Cancion>  cancionesKPOP =Lista.listaPorGenero(Genero.KPOP);
+		ArrayList<Cancion>  cancionesNO_ESPECIFICADO =Lista.listaPorGenero(Genero.NO_ESPECIFICADO);
+		ArrayList<Cancion> CancionMix = new ArrayList<Cancion>();
+		
+		int R=0;
+		Boolean parada = true;
+		while (parada == true) {
+			if(REGGAETON!=0) {
+				Cancion cancion = cancionesREGGAETON.get(new Random().nextInt(cancionesREGGAETON.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=REGGAETON) {
+						parada=false;
+					}
+			}
+			else { 
+				parada=false;
+			}
+		} 
+		
+		R=0;
+		parada = true;
+		while (parada == true) {
+			if(ROCK!=0) {
+				Cancion cancion = cancionesROCK.get(new Random().nextInt(cancionesROCK.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=ROCK) {
+						parada=false;
+					}
+			}
+			else { 
+				parada=false;
+			}
+		} 
+		
+		R=0;
+		parada = true;
+		while (parada == true) {
+			if(POP!=0) {
+				Cancion cancion = cancionesPOP.get(new Random().nextInt(cancionesPOP.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=POP) {
+						parada=false;
+					}
+			}
+			else { 
+				parada=false;
+			}
+		} 
+		
+		R=0;
+		parada = true;
+		while (parada == true) {
+			if(SALSA!=0) {
+				Cancion cancion = cancionesSALSA.get(new Random().nextInt(cancionesSALSA.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=SALSA) {
+						parada=false;
+					}
+			}
+			else { 
+				parada=false;
+			}
+		} 
+		
+		R=0;
+		parada = true;
+		while (parada == true) {
+			if(KPOP!=0) {
+				Cancion cancion = cancionesKPOP.get(new Random().nextInt(cancionesKPOP.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=KPOP) {
+						parada=false;
+					}
+			}
+			else { 
+				parada=false;
+			}
+		} 
+		
+		R=0;
+		parada = true;
+		while (parada == true) {
+			if(NO_ESPECIFICADO!=0) {
+				Cancion cancion = cancionesNO_ESPECIFICADO.get(new Random().nextInt(cancionesNO_ESPECIFICADO.size()));
+					if (CancionMix.contains(cancion)==false) {
+						CancionMix.add(cancion);
+						R++;
+					}
+					if(R>=NO_ESPECIFICADO) {
+						parada=false;
+					}
+			}
+		}
+	}
+}
