@@ -1,11 +1,14 @@
 package gestorAplicacion.gestorMusica;
 
-public abstract class Musica {
+import java.io.Serializable;
 
-    protected String nombre;
+public abstract class Musica implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	protected String nombre;
     protected int reproducciones;
 
-    public Musica(String nombre){
+    protected Musica(String nombre){
         this.nombre = nombre;
         this.reproducciones = 0;
     }
@@ -28,6 +31,7 @@ public abstract class Musica {
      
     public abstract void aumentarReproducciones();
 
+    @Override
     public abstract String toString();
 
 }

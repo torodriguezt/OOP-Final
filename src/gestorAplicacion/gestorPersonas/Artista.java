@@ -75,3 +75,39 @@ public class Artista implements Persona, Serializable {
 				+ genero;
 	}
 	
+	public static ArrayList<Artista> getArtistasDisponibles() {
+		return artistasDisponibles;
+	}
+
+	public static void setArtistasDisponibles(ArrayList<Artista> artistasDisponibles) {
+		Artista.artistasDisponibles = artistasDisponibles;
+	}
+
+	
+	public int getMeGusta(Artista artista) {
+		int like=0;
+		for(Usuario usuario: Usuario.getUsuariosExistentes()){
+			for(Cancion cancion: usuario.getFavoritos().getFavoritos()) {
+				if(cancion.getArtista().getNombre().equals(artista.getNombre())) {
+					like++;
+				}
+			}
+		}
+		return like;
+	}
+	
+	public static ArrayList<Artista> ordenarPorPuntaje(){
+		artistasDisponibles.sort(Comparator.comparing(Artista::getPuntaje).thenComparing(Artista::getNombre));
+	    return artistasDisponibles;
+	}
+
+	public int getReproducciones(Artista artista) {
+		int reproducciones = 0;
+		for(Cancion cancion: Cancion.getCancionesDisponibles()){
+			if(cancion.getArtista().getNombre().equals(artista.getNombre())){
+				reproducciones += cancion.getReproducciones();
+			}
+		}
+		return reproducciones;
+	}
+}
