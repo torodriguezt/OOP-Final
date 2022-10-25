@@ -1078,17 +1078,17 @@ public class Aplicacion {
 				K += favoritos.totalPorGenero(Genero.KPOP);
 				N += favoritos.totalPorGenero(Genero.NO_ESPECIFICADO);
 						
-				if (Re*100/totalRe >= 10) {
+				if (Re*100/totalRe >= 40) {
 					naranja.add(usuarioComparar);
-				} if(Ro*100/totalRo >= 10) {
+				} if(Ro*100/totalRo >= 40) {
 					negro.add(usuarioComparar);
-				} if(P*100/totalP >= 10) {
+				} if(P*100/totalP >= 40) {
 					rosado.add(usuarioComparar);
-				} if(S*100/totalS >= 10) {
+				} if(S*100/totalS >= 40) {
 					rojo.add(usuarioComparar);
-				} if(K*100/totalK >= 10) {
+				} if(K*100/totalK >= 40) {
 					morado.add(usuarioComparar);
-				} if(N*100/totalN >= 10) {
+				} if(N*100/totalN >= 40) {
 					blanco.add(usuarioComparar);
 				}
 			}
