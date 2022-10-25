@@ -83,15 +83,6 @@ public class Lista extends Musica implements Serializable {
 	public void setUsuarios(ArrayList<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
-	public int duracionLista() {
-		int duracionTotal=0;
-		for (int i = 0; i<lista.size();i++) {
-			duracionTotal = lista.get(i).getDuracion()+duracionTotal;
-		}
-		return duracionTotal;
-		
-	}
 
 	public String agregarCancion(Cancion cancion) {
 		lista.add(cancion);

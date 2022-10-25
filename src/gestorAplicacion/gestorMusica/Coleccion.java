@@ -57,20 +57,6 @@ public class Coleccion implements Serializable {
 		listas.remove(A);
 		return "Se ha eliminado la lista "+lista.getNombre()+" de la Colección con éxito";
 	}
-	
-	public String tiempoArtista(Artista artista) {
-		int tiempo = 0;
-		for (int i = 0; i < listas.size(); i++) {
-			ArrayList<Cancion> canciones = listas.get(i).getLista();
-			for (int p = 0; p < canciones.size(); p++) {
-				Cancion musica = canciones.get(p);
-				if (musica.getArtista() == artista) {
-					tiempo += musica.getDuracion()*musica.getReproducciones();		
-				}
-			}			
-		}	
-		return"El tiempo que has escuchado este "+artista.getNombre()+" es"+tiempo;			
-	}
 
 	public ArrayList<Cancion> cancionesUsuario(){
 

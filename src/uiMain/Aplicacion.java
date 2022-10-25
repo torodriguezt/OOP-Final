@@ -1013,7 +1013,7 @@ public class Aplicacion {
 		
 			// Revisar si el acceso a algun usuario se da correctamente por ser un array de dos elementos
 			System.out.println(colaborativa.getUsuarios().get(0).getColeccion().similitudesGenero(cancionesAgregar));
-			System.out.println(colaborativa.getUsuarios().get(1).getColeccion().similitudesCancion(cancionesAgregar));
+			//System.out.println(colaborativa.getUsuarios().get(1).getColeccion().similitudesCancion(cancionesAgregar));
 			
 			ArrayList<Cancion> canciones = new ArrayList <Cancion>(cancionesColaborativa);
 			
