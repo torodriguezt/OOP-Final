@@ -42,7 +42,14 @@ public class Lista extends Musica implements Serializable {
 		//ver como afecta que en el constructor solo reciba usuarios invidivuales en el caso de tener arrays 
 		this.colaborativa(usuarios);
 	}
-	
+	public int duracionLista() {
+		int duracionTotal=0;
+		for (int i = 0; i<lista.size();i++) {
+			duracionTotal = lista.get(i).getDuracion()+duracionTotal;
+		}
+		return duracionTotal;
+		
+	}
 	
 	public ArrayList<Cancion> getLista() {
 		return lista;
