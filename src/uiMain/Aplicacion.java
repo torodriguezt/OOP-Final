@@ -52,7 +52,7 @@ public class Aplicacion {
 					System.out.println("---------------------");
 					Serializador.serializarDatos();
 					System.out.println("¡Hasta luego!");
-					break;
+					System.exit(0);
 				default:
 					System.out.println("---------------------");
 					System.out.println("¡Esta no es una opción válida!");
