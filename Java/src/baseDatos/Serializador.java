@@ -20,7 +20,7 @@ public class Serializador {
 		FileOutputStream fileOut;
 
 		try {
-			String path = System.getProperty("user.dir") + "/src/baseDatos/temp/" + nombre + ".txt";
+			String path = System.getProperty("user.dir") + "/Java/src/baseDatos/temp/" + nombre + ".txt";
 			fileOut = new FileOutputStream(path);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(lista);

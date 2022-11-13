@@ -20,7 +20,7 @@ public class Deserializador {
 		FileInputStream fileIn;
 		
 		try {
-			String path = System.getProperty("user.dir") + "/src/baseDatos/temp/" + nombre + ".txt";
+			String path = System.getProperty("user.dir") + "/Java/src/baseDatos/temp/" + nombre + ".txt";
 			// System.out.println("Ruta " + path);
 			fileIn = new FileInputStream(path);
 			ObjectInputStream in = new ObjectInputStream(fileIn);

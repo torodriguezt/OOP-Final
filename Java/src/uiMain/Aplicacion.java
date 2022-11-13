@@ -548,51 +548,34 @@ public class Aplicacion {
 	static void recomendarMusica(Usuario usuario) {
 		
 		ArrayList<Cancion> recomendadas = new ArrayList<Cancion>();	
-		
-		Genero genero = usuario.tuGenFavorito(usuario);
-		
-		if(genero != null){
-			
+		Genero genero = usuario.tuGenFavorito(usuario);	
+		if(genero != null){	
 			for (Cancion cancion : Cancion.getCancionesDisponibles()) {
 				if(cancion.getGenero() == genero){
 					recomendadas.add(cancion);
 				}	
 			}
-
-			ArrayList<Cancion> canciones = new ArrayList<Cancion>();
-			
+			ArrayList<Cancion> canciones = new ArrayList<Cancion>();	
 			canciones = usuario.getColeccion().cancionesUsuario();
-
 			for(Cancion cancion : usuario.getFavoritos().getFavoritos()){
-
 				if(canciones.contains(cancion) == false){
-
 					canciones.add(cancion);
 				}
 			}
 			ArrayList<Cancion> recomendadas2 = new ArrayList<Cancion>();
-
 			for (Cancion cancion : recomendadas) {
-
 				boolean flag = true;
-
 				for (Cancion cancion2 : canciones) {
-
 					String a1 = cancion.getNombre();
 					String a2 = cancion2.getNombre();
-
 					if(a1.equals(a2)){
 						flag = false;
-					}
-					
+					}	
 				}
-
 				if(flag){
 					recomendadas2.add(cancion);
-				}
-				
+				}	
 			}
-
 			System.out.println("Segun la musica de tu colección estas canciones te podrian interesar: \n");
 			recomendadas2.forEach((Cancion cancion) -> System.out.println(cancion.getNombre()));
 		}
@@ -601,7 +584,6 @@ public class Aplicacion {
 			System.out.println("Estas son las 3 canciones mas escuchadas por la comunidad");
 			recomendadas = (ArrayList<Cancion>)Cancion.getCancionesDisponibles().clone();
 			recomendadas.sort((Comparator.comparing(Cancion :: getReproducciones)).reversed());
-
 			for(int i = 0; i<3; i++){
 				System.out.println(recomendadas.get(i).getNombre());
 			}
@@ -829,7 +811,7 @@ public class Aplicacion {
 		
 		int R=0;
 		Boolean parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(REGGAETON!=0) {
 				Cancion cancion = cancionesREGGAETON.get(new Random().nextInt(cancionesREGGAETON.size()));
 					if (CancionMix.contains(cancion)==false) {
@@ -847,7 +829,7 @@ public class Aplicacion {
 		
 		R=0;
 		parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(ROCK!=0) {
 				Cancion cancion = cancionesROCK.get(new Random().nextInt(cancionesROCK.size()));
 					if (CancionMix.contains(cancion)==false) {
@@ -865,7 +847,7 @@ public class Aplicacion {
 		
 		R=0;
 		parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(POP!=0) {
 				Cancion cancion = cancionesPOP.get(new Random().nextInt(cancionesPOP.size()));
 					if (CancionMix.contains(cancion)==false) {
@@ -883,7 +865,7 @@ public class Aplicacion {
 		
 		R=0;
 		parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(SALSA!=0) {
 				Cancion cancion = cancionesSALSA.get(new Random().nextInt(cancionesSALSA.size()));
 					if (CancionMix.contains(cancion)==false) {
@@ -901,7 +883,7 @@ public class Aplicacion {
 		
 		R=0;
 		parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(KPOP!=0) {
 				Cancion cancion = cancionesKPOP.get(new Random().nextInt(cancionesKPOP.size()));
 					if (CancionMix.contains(cancion)==false) {
@@ -919,7 +901,7 @@ public class Aplicacion {
 		
 		R=0;
 		parada = true;
-		while (parada == true) {
+		while (parada) {
 			if(NO_ESPECIFICADO!=0) {
 				Cancion cancion = cancionesNO_ESPECIFICADO.get(new Random().nextInt(cancionesNO_ESPECIFICADO.size()));
 					if (CancionMix.contains(cancion)==false) {
