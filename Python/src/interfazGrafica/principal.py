@@ -264,7 +264,7 @@ class Principal():
           
           fieldCrearArtista.crearBotones(crearArtista)
           
-          outputArtista = tk.Text(frameCrearArtista, height=100, font=("Verdana", 10))
+          outputArtista = tk.Text(frameCrearArtista, height=100, font=("Verdana", 10), border = False)
           Principal.frames.append(outputArtista)
           
           nombreCrearArtista.pack()
@@ -357,7 +357,7 @@ class Principal():
           
           fieldCrearCancion.crearBotones(crearCancion)
           
-          outputCancion = tk.Text(frameCrearCancion, height=100, font=("Verdana", 10))
+          outputCancion = tk.Text(frameCrearCancion, height=100, font=("Verdana", 10), border = False)
           Principal.frames.append(outputCancion)
           
           nombrecrearCancion.pack()
