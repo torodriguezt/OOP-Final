@@ -264,7 +264,6 @@ Selecciona REPRODUCIR para escuchar tus favoritos"""
                 messagebox.showerror("Error", CancionIncorrecta(nCancion).mostrarMensaje())
             else:
                 for cancion in usuario.getFavoritos().getFavoritos():
-                    if cancion != None:
                         if nCancion == cancion.getNombre():
                             c = cancion
                 texto = usuario.eliminarMeGusta(c)
