@@ -24,7 +24,6 @@ class Principal2():
         self.title("Colección de {}".format(usuario.getNombre()))
         self.option_add('*tearOff', False)
         self.resizable(False, False)
-        user = usuario
 
         ancho_total = self.winfo_screenwidth()
         alto_total = self.winfo_screenheight()
