@@ -252,3 +252,118 @@ class Principal():
           
           #FieldFrame para crear Artista
           frameCrearArtista = tk.Frame(self)
+          nombreCrearArtista = tk.Label(frameCrearArtista, text="Crea un Artista", font=("Segoe Print", 20), fg = "#2C34FA")
+          blankCrearArtista = tk.Label(frameCrearArtista,text="Por favor ingresa el nombre del artista",font=("Verdana", 12))
+          fieldCrearArtista = FieldFrame(frameCrearArtista, None, ["Nombre"], None, None, None)
+             
+          self.comboArtista = ttk.Combobox(frameCrearArtista, state="readonly", values=["Reggaeton","Rock", "Pop", "Salsa", "Kpop", "No Especificado"], width=30)
+          self.comboArtista.place(x = 105, y = 190)
+          
+          comboLabelArtista = tk.Label(frameCrearArtista,text="Genero",font=("Verdana", 12))
+          comboLabelArtista.place(x = 30, y = 190)
+          
+          fieldCrearArtista.crearBotones(crearArtista)
+          
+          outputArtista = tk.Text(frameCrearArtista, height=100, font=("Verdana", 10))
+          Principal.frames.append(outputArtista)
+          
+          nombreCrearArtista.pack()
+          blankCrearArtista.pack()
+          fieldCrearArtista.pack(pady=(10,10))
+          
+          Principal.frames.append(frameCrearArtista)
+          
+          #cCrear Usuario
+          def crearUsuario():
+               nombre = fieldCrearUsuario.getValue("Nombre")
+               genero = self.combo.get()
+               genUsuario = None
+               for i in Genero:
+                    if genero == i.value:
+                         genUsuario = i
+               Usuario(nombre, genUsuario)
+               messagebox.showinfo("Éxito", "El usuario fue creado correctamente")
+               return
+          
+          #FieldFrame para crear Artista
+          frameCrearUsuario = tk.Frame(self)
+          nombrecrearUsuario = tk.Label(frameCrearUsuario, text="Crea un Usuario", font=("Segoe Print", 20), fg = "#2C34FA")
+          blankCrearUsuario = tk.Label(frameCrearUsuario,text="Por favor ingresa el nombre del usuario",font=("Verdana", 12))
+          fieldCrearUsuario = FieldFrame(frameCrearUsuario, None, ["Nombre"], None, None, None)
+          
+          self.combo = ttk.Combobox(frameCrearUsuario, state="readonly", values=["Reggaeton","Rock", "Pop", "Salsa", "Kpop", "No Especificado"], width=30)
+          self.combo.place(x = 110, y = 190)
+          
+          comboLabel = tk.Label(frameCrearUsuario,text="Genero",font=("Verdana", 12))
+          comboLabel.place(x = 30, y = 190)
+          
+          fieldCrearUsuario.crearBotones(crearUsuario)
+          
+          outputUsuario = tk.Text(frameCrearUsuario, height=100, font=("Verdana", 10))
+          Principal.frames.append(outputUsuario)
+          
+          nombrecrearUsuario.pack()
+          blankCrearUsuario.pack()
+          fieldCrearUsuario.pack(pady=(10,10))
+          
+          Principal.frames.append(frameCrearUsuario)
+          
+          # Crear Cancion
+          
+          def crearCancion():
+               nombre_cancion = fieldCrearCancion.getValue("Nombre")
+               nombre_artista = fieldCrearCancion.getValue("Artista")
+
+               # Manejando la excepción de los datos incorrectos
+               try:
+                    duracion = int(fieldCrearCancion.getValue("Duracion"))
+                    año = int(fieldCrearCancion.getValue("Año"))
+               except:
+                    messagebox.showerror("Aviso", Numero().mostrarMensaje())
+                    for entry in fieldCrearCancion._elementos:
+                         entry.delete(0, "end")
+                    return
+
+               genero = self.comboCancion.get()
+               art = None
+               gen = None
+               for artista in Artista.getArtistasDisponibles():
+                   if  nombre_artista == artista.getNombre():
+                         art = artista
+               # Manejando la excepción del artista que no existe
+               try:
+                    art.getNombre()
+                    for i in Genero:
+                         if genero == i.value:
+                              gen = i
+                    if gen == None:
+                         gen = Genero.NO_ESPECIFICADO
+                    Cancion(nombre_cancion, art, gen, duracion, año)
+                    messagebox.showinfo("Exito", "La cancion fue creado correctamente")
+               except:
+                    messagebox.showerror("Aviso", ArtistaInexistente(nombre_artista).mostrarMensaje())
+                    
+          # FieldFrame para crear Artista
+          frameCrearCancion = tk.Frame(self)
+          nombrecrearCancion = tk.Label(frameCrearCancion, text="Crea una Canción", font=("Segoe Print", 20), fg = "#2C34FA")
+          blankCrearCancion = tk.Label(frameCrearCancion,text="Por favor ingresa el nombre de la cancion",font=("Verdana", 12))
+          fieldCrearCancion = FieldFrame(frameCrearCancion, None, ["Nombre", "Duracion", "Artista", "Año"], None, None, None)
+          
+          self.comboCancion = ttk.Combobox(frameCrearCancion, state="readonly", values=["Reggaeton","Rock", "Pop", "Salsa", "Kpop", "No Especificado"], width=30)
+          self.comboCancion.place(x = 120, y = 315)
+          
+          comboLabelCancion = tk.Label(frameCrearCancion,text="Genero",font=("Verdana", 12))
+          comboLabelCancion.place(x = 30, y = 315)
+          
+          fieldCrearCancion.crearBotones(crearCancion)
+          
+          outputCancion = tk.Text(frameCrearCancion, height=100, font=("Verdana", 10))
+          Principal.frames.append(outputCancion)
+          
+          nombrecrearCancion.pack()
+          blankCrearCancion.pack()
+          fieldCrearCancion.pack(pady=(10,10))
+          
+          Principal.frames.append(frameCrearCancion)
+
+          self.mainloop()
