@@ -152,7 +152,7 @@ Selecciona REPRODUCIR para escuchar tu lista"""
             Lista = [x for x in usuario.getColeccion().getListas() if x.getNombre() == nombreLista]
 
             if nombreLista == "":
-                msg = ""
+                msg = "Tus listas de reproducción son:\n"
                 for l in usuario.getColeccion().getListas():
                     if l.getDescripcion() == "Colaborativa":     
                         msg = msg + l.infoListaColaborativa() + "\n"
